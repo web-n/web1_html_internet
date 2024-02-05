@@ -8,9 +8,10 @@ var app = http.createServer(function(request,response){
     if(pathname === '/'){
       if(queryData.id === undefined){
 
-        fs.readdir('./data', function(error, filelist){
+        fs.readdir('./data', function(err, filelist){
             console.log(filelist);
-            
+            console.log(err);
+
             var title = 'Welcome';
             var description = 'Hello, Node.js';
             var list = '<ul>';
