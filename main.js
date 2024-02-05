@@ -35,16 +35,13 @@ var app = http.createServer(function(request,response){
     var _url = request.url;
     var queryData = url.parse(_url, true).query; // queryData 변수에 저장된 것은 URL의 쿼리 스트링 부분을 키-값 쌍으로 가지는 객체
     var pathname = url.parse(_url, true).pathname;
-
-    
-
     if(pathname === '/'){
       if(queryData.id === undefined){
         fs.readdir('./data', function(err, filelist){
             var title = 'Welcome';
             var description = 'Hello, Node.js';
             var list = templateList(filelist);
-            var temmplate = templateHTML(title,list,`<h2>${title}</h2>${descriptionbody}`);
+            var template = templateHTML(title,list,`<h2>${title}</h2>${descriptionbody}`);
             response.writeHead(200);
             response.end(template);
     
@@ -53,7 +50,7 @@ var app = http.createServer(function(request,response){
                 fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
                 var title = queryData.id;
                 var list = templateList(filelist);
-                var temmplate = templateHTML(title,list,`<h2>${title}</h2>${descriptionbody}`);
+                var template = templateHTML(title,list,`<h2>${title}</h2>${descriptionbody}`);
               response.writeHead(200);
               response.end(template);
             });
