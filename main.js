@@ -3,24 +3,24 @@ var fs = require('fs');
 var url = require('url');
 var app = http.createServer(function(request,response){
     var _url = request.url;
-    var queryData = url.parse(_url, true).query;
+    var queryData = url.parse(_url, true).query; // queryData 변수에 저장된 것은 URL의 쿼리 스트링 부분을 키-값 쌍으로 가지는 객체
     var pathname = url.parse(_url, true).pathname;
+
     if(pathname === '/'){
       if(queryData.id === undefined){
 
         fs.readdir('./data', function(err, filelist){
             console.log(filelist);
-            console.log(err);
 
             var title = 'Welcome';
             var description = 'Hello, Node.js';
-            var list = '<ul>';
-            var i = 0;
-            while(i < filelist.length){
-              list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
-              i = i + 1;
-            }
 
+            var list = '<ul>';
+                var i = 0;
+                while(i < filelist.length){
+                list = list + `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
+                i = i + 1;
+                }
             list = list+'</ul>';
             
             var template = `
@@ -42,7 +42,9 @@ var app = http.createServer(function(request,response){
 
             response.writeHead(200);
             response.end(template);
-        })} else {
+    
+        })
+      } else {
             fs.readdir('./data', function(error, filelist){
                 var title = 'Welcome';
                 var description = 'Hello, Node.js';
